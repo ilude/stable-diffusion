@@ -1,6 +1,8 @@
 x-service: &default-service
   image: holaflenain/stable-diffusion:latest
   runtime: nvidia
+  networks:
+      - traefik
   volumes:
     - '/data/stable-diffusion:/config:rw'
   
@@ -18,7 +20,9 @@ x-labels: &default-labels
   - com.centurylinklabs.watchtower.enable=true
   - autoheal=true
 
-  
+networks:
+  traefik:
+    external: true
 
 services:
   stable-diffusion-easy-diffusion:
