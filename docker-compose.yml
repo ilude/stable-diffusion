@@ -4,7 +4,7 @@ x-service: &default-service
   networks:
       - traefik
   volumes:
-    - '/data/stable-diffusion:/config:rw'
+    - '${STABLE_DIFFUSION_DATA_DIRECTORY:-/data/stable-diffusion}:/config:rw'
   
 
 x-environment: &default-environment
@@ -12,13 +12,6 @@ x-environment: &default-environment
   TZ: ${TZ:-America/New_York}
   PUID: ${PUID:-1000}
   PGID: ${PGID:-1000}
-
-x-labels: &default-labels
-  - traefik.enable=true
-  - traefik.http.routers.ollama.entrypoints=websecure
-  - traefik.http.services.ollama.loadbalancer.server.port=9000
-  - com.centurylinklabs.watchtower.enable=true
-  - autoheal=true
 
 networks:
   traefik:
@@ -33,10 +26,10 @@ services:
       <<: *default-environment
       WEBUI_VERSION: '01'
     labels:
-      - joyride.host.name=easy-diffusion.traefikturkey.icu
+      - joyride.host.name=easy-diffusion.${HOST_DOMAIN:-traefikturkey.icu}
       - traefik.enable=true
       - traefik.http.routers.easy-diffusion.entrypoints=websecure
-      - traefik.http.routers.easy-diffusion.rule=Host(`easy-diffusion.traefikturkey.icu`)
+      - traefik.http.routers.easy-diffusion.rule=Host(`easy-diffusion.${HOST_DOMAIN:-traefikturkey.icu}`)
       - traefik.http.services.easy-diffusion.loadbalancer.server.port=9000
       - com.centurylinklabs.watchtower.enable=true
       - autoheal=true
@@ -50,10 +43,10 @@ services:
       <<: *default-environment
       WEBUI_VERSION: '02'
     labels:
-      - joyride.host.name=automatic.traefikturkey.icu
+      - joyride.host.name=automatic.${HOST_DOMAIN:-traefikturkey.icu}
       - traefik.enable=true
       - traefik.http.routers.automatic.entrypoints=websecure
-      - traefik.http.routers.automatic.rule=Host(`automatic.traefikturkey.icu`)
+      - traefik.http.routers.automatic.rule=Host(`automatic.${HOST_DOMAIN:-traefikturkey.icu}`)
       - traefik.http.services.automatic.loadbalancer.server.port=9000
       - com.centurylinklabs.watchtower.enable=true
       - autoheal=true
@@ -66,10 +59,10 @@ services:
       <<: *default-environment
       WEBUI_VERSION: '02.forge'
     labels:
-      - joyride.host.name=forge.traefikturkey.icu
+      - joyride.host.name=forge.${HOST_DOMAIN:-traefikturkey.icu}
       - traefik.enable=true
       - traefik.http.routers.forge.entrypoints=websecure
-      - traefik.http.routers.forge.rule=Host(`forge.traefikturkey.icu`)
+      - traefik.http.routers.forge.rule=Host(`forge.${HOST_DOMAIN:-traefikturkey.icu}`)
       - traefik.http.services.forge.loadbalancer.server.port=9000
       - com.centurylinklabs.watchtower.enable=true
       - autoheal=true
@@ -82,10 +75,10 @@ services:
       <<: *default-environment
       WEBUI_VERSION: '03'
     labels:
-      - joyride.host.name=invoke-ai.traefikturkey.icu
+      - joyride.host.name=invoke-ai.${HOST_DOMAIN:-traefikturkey.icu}
       - traefik.enable=true
       - traefik.http.routers.invoke-ai.entrypoints=websecure
-      - traefik.http.routers.invoke-ai.rule=Host(`invoke-ai.traefikturkey.icu`)
+      - traefik.http.routers.invoke-ai.rule=Host(`invoke-ai.${HOST_DOMAIN:-traefikturkey.icu}`)
       - traefik.http.services.invoke-ai.loadbalancer.server.port=9000
       - com.centurylinklabs.watchtower.enable=true
       - autoheal=true
@@ -98,10 +91,10 @@ services:
       <<: *default-environment
       WEBUI_VERSION: '04'
     labels:
-      - joyride.host.name=sd-next.traefikturkey.icu
+      - joyride.host.name=sd-next.${HOST_DOMAIN:-traefikturkey.icu}
       - traefik.enable=true
       - traefik.http.routers.sd-next.entrypoints=websecure
-      - traefik.http.routers.sd-next.rule=Host(`sd-next.traefikturkey.icu`)
+      - traefik.http.routers.sd-next.rule=Host(`sd-next.${HOST_DOMAIN:-traefikturkey.icu}`)
       - traefik.http.services.sd-next.loadbalancer.server.port=9000
       - com.centurylinklabs.watchtower.enable=true
       - autoheal=true
@@ -114,10 +107,10 @@ services:
       <<: *default-environment
       WEBUI_VERSION: '05'
     labels:
-      - joyride.host.name=comfy-ui.traefikturkey.icu
+      - joyride.host.name=comfy-ui.${HOST_DOMAIN:-traefikturkey.icu}
       - traefik.enable=true
       - traefik.http.routers.comfy-ui.entrypoints=websecure
-      - traefik.http.routers.comfy-ui.rule=Host(`comfy-ui.traefikturkey.icu`)
+      - traefik.http.routers.comfy-ui.rule=Host(`comfy-ui.${HOST_DOMAIN:-traefikturkey.icu}`)
       - traefik.http.services.comfy-ui.loadbalancer.server.port=9000
       - com.centurylinklabs.watchtower.enable=true
       - autoheal=true
@@ -130,10 +123,10 @@ services:
       <<: *default-environment
       WEBUI_VERSION: '06'
     labels:
-      - joyride.host.name=fooocus.traefikturkey.icu
+      - joyride.host.name=fooocus.${HOST_DOMAIN:-traefikturkey.icu}
       - traefik.enable=true
       - traefik.http.routers.fooocus.entrypoints=websecure
-      - traefik.http.routers.fooocus.rule=Host(`fooocus.traefikturkey.icu`)
+      - traefik.http.routers.fooocus.rule=Host(`fooocus.${HOST_DOMAIN:-traefikturkey.icu}`)
       - traefik.http.services.fooocus.loadbalancer.server.port=9000
       - com.centurylinklabs.watchtower.enable=true
       - autoheal=true
@@ -146,10 +139,10 @@ services:
       <<: *default-environment
       WEBUI_VERSION: '07'
     labels:
-      - joyride.host.name=stable-swarm.traefikturkey.icu
+      - joyride.host.name=stable-swarm.${HOST_DOMAIN:-traefikturkey.icu}
       - traefik.enable=true
       - traefik.http.routers.stable-swarm.entrypoints=websecure
-      - traefik.http.routers.stable-swarm.rule=Host(`stable-swarm.traefikturkey.icu`)
+      - traefik.http.routers.stable-swarm.rule=Host(`stable-swarm.${HOST_DOMAIN:-traefikturkey.icu}`)
       - traefik.http.services.stable-swarm.loadbalancer.server.port=9000
       - com.centurylinklabs.watchtower.enable=true
       - autoheal=true
@@ -162,10 +155,10 @@ services:
       <<: *default-environment
       WEBUI_VERSION: '50'
     labels:
-      - joyride.host.name=lama-cleaner.traefikturkey.icu
+      - joyride.host.name=lama-cleaner.${HOST_DOMAIN:-traefikturkey.icu}
       - traefik.enable=true
       - traefik.http.routers.lama-cleaner.entrypoints=websecure
-      - traefik.http.routers.lama-cleaner.rule=Host(`lama-cleaner.traefikturkey.icu`)
+      - traefik.http.routers.lama-cleaner.rule=Host(`lama-cleaner.${HOST_DOMAIN:-traefikturkey.icu}`)
       - traefik.http.services.lama-cleaner.loadbalancer.server.port=9000
       - com.centurylinklabs.watchtower.enable=true
       - autoheal=true
@@ -178,10 +171,10 @@ services:
       <<: *default-environment
       WEBUI_VERSION: '51'
     labels:
-      - joyride.host.name=face-fusion.traefikturkey.icu
+      - joyride.host.name=face-fusion.${HOST_DOMAIN:-traefikturkey.icu}
       - traefik.enable=true
       - traefik.http.routers.face-fusion.entrypoints=websecure
-      - traefik.http.routers.face-fusion.rule=Host(`face-fusion.traefikturkey.icu`)
+      - traefik.http.routers.face-fusion.rule=Host(`face-fusion.${HOST_DOMAIN:-traefikturkey.icu}`)
       - traefik.http.services.face-fusion.loadbalancer.server.port=9000
       - com.centurylinklabs.watchtower.enable=true
       - autoheal=true
@@ -194,10 +187,10 @@ services:
       <<: *default-environment
       WEBUI_VERSION: '70'
     labels:
-      - joyride.host.name=kohya.traefikturkey.icu
+      - joyride.host.name=kohya.${HOST_DOMAIN:-traefikturkey.icu}
       - traefik.enable=true
       - traefik.http.routers.kohya.entrypoints=websecure
-      - traefik.http.routers.kohya.rule=Host(`kohya.traefikturkey.icu`)
+      - traefik.http.routers.kohya.rule=Host(`kohya.${HOST_DOMAIN:-traefikturkey.icu}`)
       - traefik.http.services.kohya.loadbalancer.server.port=9000
       - com.centurylinklabs.watchtower.enable=true
       - autoheal=true
