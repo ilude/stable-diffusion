@@ -30,7 +30,7 @@ Unraid template available on [superboki's Repository](https://github.com/superbo
 
 ```
 docker compose --profile easy-diffusion up    # http://<server_ip>:9001
-docker compose --profile automatic1111 up     # http://<server_ip>:9002
+docker compose --profile automatic up         # http://<server_ip>:9002
 docker compose --profile forge up             # http://<server_ip>:9022
 docker compose --profile invoke-ai up         # http://<server_ip>:9003
 docker compose --profile sd-next up           # http://<server_ip>:9004
@@ -43,11 +43,41 @@ docker compose --profile kohya up             # http://<server_ip>:9070
 
 ```
 
-or
+or 
+( Although not recommended as it will requires significant system resources, 64GB+ system memory and at bare minimum 16GB VRAM card, you have been warned! ) 
 
 ```
 docker compose up       # to run all the services at once
 ```
+
+## Make
+
+alternatively you can use make to start and stop the services
+
+there are two variations 
+
+```
+# will start the service detached from the terminal (running in the background)
+make start <profile_name> 
+
+# will start the service and leave its output attached to the terminal
+make up <profile_name>
+```
+Here is a complete list for starting services
+```
+make start easy-diffusion    # http://<server_ip>:9001
+make start automatic         # http://<server_ip>:9002
+make start forge             # http://<server_ip>:9022
+make start invoke-ai         # http://<server_ip>:9003
+make start sd-next           # http://<server_ip>:9004
+make start comfy-ui          # http://<server_ip>:9005
+make start fooocus           # http://<server_ip>:9006
+make start stable-swarm      # http://<server_ip>:9007
+make start lama-cleaner      # http://<server_ip>:9050
+make start face-fusion       # http://<server_ip>:9051
+make start kohya             # http://<server_ip>:9070
+```
+
 
 ## Directory Structure
 
