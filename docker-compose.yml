@@ -3,6 +3,12 @@ x-service: &default-service
   runtime: nvidia
   networks:
       - traefik
+  healthcheck:
+    test: curl --fail http://localhost:9000 || exit 1
+    interval: 30s
+    retries: 5
+    start_period: 20s
+    timeout: 10s
   volumes:
     - '${STABLE_DIFFUSION_DATA_DIRECTORY:-/data/stable-diffusion}:/config:rw'
   

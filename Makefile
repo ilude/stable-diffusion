@@ -28,8 +28,7 @@ up:
 	docker compose --profile $(filter-out $@,$(MAKECMDGOALS)) up
 
 # down/stop target
-down: stop
-stop:
+down:
 	docker compose --profile $(filter-out $@,$(MAKECMDGOALS)) down
 
 # start target
